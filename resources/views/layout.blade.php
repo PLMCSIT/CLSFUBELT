@@ -55,24 +55,22 @@
                         <nav class="navigation">
                             <ul class="sf-menu">
                                 <li><a href="{{ url('home') }}">Home</a></li>
-                                <li><a href="#">About Us</a>
-                                <ul class="dropdown">
-                                    <li><a href="{{ url('about') }}">Overview</a></li>
-                                    <li><a href="{{ url('vision') }}">Mission and Vision</a></li>
-                                    <li><a href="{{ url('history') }}">History</a></li>
-                                    <li><a href="{{ url('contact') }}">Contact Us</a></li>
-                                    <li><a href="{{ url('location') }}">Location</a></li>
-                                </ul>
-                                </li>
-                                
-                                
                                 <li><a href="{{ url('event') }}">Events</a></li>
                                 @if(Auth::guest())
                                     <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
                                 @else
-                                @if(Entrust::hasRole(['Owner', 'Admin']))
+                                @if(Entrust::hasRole(['Owner', 'Admin', 'Leader']))
                                     <li><a href="{{ url('/dashboard')}}"> Dashboard</a></li>
                                 @endif
+                                    <li><a href="#">About Us</a>
+                                    <ul class="dropdown">
+                                        <li><a href="{{ url('about') }}">Overview</a></li>
+                                        <li><a href="{{ url('vision') }}">Mission and Vision</a></li>
+                                        <li><a href="{{ url('history') }}">History</a></li>
+                                        <li><a href="{{ url('contact') }}">Contact Us</a></li>
+                                        <li><a href="{{ url('location') }}">Location</a></li>
+                                    </ul>
+                                    </li>
                                     <li><a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();"> Logout</a></li>

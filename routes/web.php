@@ -10,31 +10,41 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-
+use App\Event;
+//GUEST ROUTES
 Route::get('/', function () {
-    return view('home');
+    return view('home.home');
 });
-
 Route::get('home', function () {
-    return view('home');
+    return view('home.home');
 });
-
 Route::get('about', function () {
-    return view('about');
+    return view('home.about');
 });
-
-
-
-Auth::routes();
-
-Route::get('user', 'HomeController@index');
+Route::get('vision', function () {
+    return view('home.vision');
+});
+Route::get('contact', function () {
+    return view('home.contact');
+});
+Route::get('history', function () {
+    return view('home.history');
+});
+Route::get('location', function () {
+    return view('home.location');
+});
+Route::get('event', function(){
+        $events = Event::all();
+        return view('home.events',compact('events'));
+});
 Route::get('unauthorized', function(){
     return view('errors.401');
 });
 
+Auth::routes();
+Route::get('user', 'HomeController@index');
 //event Resources
 /********************* event ***********************************************/
-Route::resource('event','\App\Http\Controllers\EventController');
 Route::post('event/{id}/update','\App\Http\Controllers\EventController@update');
 Route::get('event/{id}/delete','\App\Http\Controllers\EventController@destroy');
 Route::get('event/{id}/deleteMsg','\App\Http\Controllers\EventController@DeleteMsg');
