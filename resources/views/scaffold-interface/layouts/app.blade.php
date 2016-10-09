@@ -63,8 +63,11 @@
 											<a href="{{ url('home') }}" class="btn btn-default btn-flat">Home</a>
 										</div>
 										<div class="pull-right">
-										 {{ csrf_field() }}
-											<a href="{{url('logout')}}" class="btn btn-default btn-flat">Sign out</a>
+										<a href="{{ url('/logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();"> Logout</a>
+										<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+											{{ csrf_field() }}
+										</form>
 										</div>
 									</li>
 								</ul>
@@ -101,10 +104,12 @@
 						<li class="treeview"><a href="{{url('/users')}}"><i class="fa fa-users"></i> <span>Users</span></a></li>
 						<li class="treeview"><a href="{{url('/roles')}}"><i class="fa fa-user-plus"></i> <span>Role</span></a></li>
 						<li class="treeview"><a href="{{url('/permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
+						<li class="treeview"><a href="{{url('/events')}}"><i class="fa fa-users"></i> <span>Events</span></a></li>
 						@endif
 
 						@if(Entrust::hasRole('Admin'))
 						<li class="header">ADMINISTRATOR</li>
+						<li class="treeview"><a href="{{url('/events')}}"><i class="fa fa-users"></i> <span>Events</span></a></li>
 						@endif
 
 						@if(Entrust::hasRole('Leader'))
@@ -120,6 +125,7 @@
 			</div>
 		</div>
 		<!-- Compiled and minified JavaScript -->
+		@yield('script')
 		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/js/app.min.js"></script>

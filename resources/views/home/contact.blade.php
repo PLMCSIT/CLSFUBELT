@@ -1,5 +1,10 @@
-@extends('layout')
-
+@extends('layouts.basic')
+@section('title')
+Contact Us
+@endsection
+@section('active')
+Contact Us
+@endsection
 @section('content')
 <div class="main" role="main">
     <div id="content" class="content full">

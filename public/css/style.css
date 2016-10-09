@@ -671,7 +671,7 @@ body.boxed .body .site-header, body.boxed .body .main-menu-wrapper{
 	width:100%;
 }
 .site-header .topbar{
-	background-color:rgba(255,255,255,.8);
+	background-color:rgba(3, 75, 73, 0.30);
 	height:80px;
 	position:relative;
 	z-index:3;
@@ -1397,6 +1397,7 @@ html[xmlns] .slides {
 	-webkit-border-radius:2px;
 	-moz-border-radius:2px;
 	border-radius:2px;
+	background-color: cadetblue;
 }
 .timer-col #hours, .timer-col #minutes, .timer-col #seconds{
 	background:#eceae4;
@@ -1613,7 +1614,7 @@ html[xmlns] .slides {
 	border:0;
 }
 .site-footer{
-	background-color:#f8f7f3;
+	background-color:#e3e0d9;
 	padding:50px 0;
 	box-shadow:0 -2px 0 rgba(0,0,0,.07);
 }
@@ -1662,7 +1663,7 @@ html[xmlns] .slides {
 }
 .page-header h1{
 	text-transform:uppercase;
-	color:#ffffff;
+	color:#428bca;
 	margin-bottom:0;
 	line-height:1em;
 	font-family: 'Roboto Condensed', sans-serif;

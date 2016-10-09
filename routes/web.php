@@ -10,7 +10,7 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-use App\Event;
+
 //GUEST ROUTES
 Route::get('/', function () {
     return view('home.home');
@@ -33,22 +33,29 @@ Route::get('history', function () {
 Route::get('location', function () {
     return view('home.location');
 });
-Route::get('event', function(){
-        $events = Event::all();
-        return view('home.events',compact('events'));
-});
+Route::get('event', '\App\Http\Controllers\EventController@index');
+Route::get('view_event/{id}', '\App\Http\Controllers\EventController@view_event');
+
 Route::get('unauthorized', function(){
     return view('errors.401');
 });
 
 Auth::routes();
 Route::get('user', 'HomeController@index');
+Route::get('event/join/{user_id}/{event_id}','\App\Http\Controllers\EventController@join');
+Route::get('event/leave/{user_id}/{event_id}','\App\Http\Controllers\EventController@leave');
+Route::group(['middleware' => 'role:Owner|Admin'], function() {
 //event Resources
 /********************* event ***********************************************/
-Route::post('event/{id}/update','\App\Http\Controllers\EventController@update');
-Route::get('event/{id}/delete','\App\Http\Controllers\EventController@destroy');
-Route::get('event/{id}/deleteMsg','\App\Http\Controllers\EventController@DeleteMsg');
+Route::get('events','\App\Http\Controllers\EventController@index2');
+Route::get('events/create','\App\Http\Controllers\EventController@create');
+Route::post('events/store','\App\Http\Controllers\EventController@store');
+Route::get('events/edit/{id}','\App\Http\Controllers\EventController@edit');
+Route::post('events/update','\App\Http\Controllers\EventController@update');
+Route::get('events/delete/{id}','\App\Http\Controllers\EventController@destroy');
+Route::get('events/deleteMsg/{id}','\App\Http\Controllers\EventController@DeleteMsg');
 /********************* event ***********************************************/
+});
 
 Route::group(['middleware' => 'role:Owner'], function() {
     Route::resource('roles','\App\Http\Controllers\ScaffoldInterface\RoleController');

@@ -12,7 +12,8 @@
 </section>
 <section class="content">
 	<div class="row">
-		@if(Entrust::hasRole('Owner'))
+		@if(Entrust::hasRole(['Owner', 'Admin']))
+			@if(Entrust::hasRole('Owner'))
 			<div class="col-lg-3 col-xs-6">
 				<!-- small box -->
 				<div class="small-box bg-aqua">
@@ -52,7 +53,27 @@
 					<a href="{{url('permissions')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
+			@endif
+			<?php
+				$getLatestEvent = DB::table('events')->orderBy('event_date')->get();
+				$events = $getLatestEvent->count();
+			?>
+			<div class="col-lg-3 col-xs-6">
+			<!-- small box -->
+			<div class="small-box bg-green">
+				<div class="inner">
+					<h3>{{$events}}</h3>
+					<p>Events</p>
+				</div>
+				<div class="icon">
+					<i class="fa fa-calendar-plus-o"></i>
+				</div>
+				<a href="{{url('events')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+			</div>
+		</div>
+
 		@endif
+
 	</div>
 </section>
 @endsection

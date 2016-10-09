@@ -21,15 +21,11 @@ class Events extends Migration
         Schema::create('events',function (Blueprint $table){
 
         $table->increments('id');
-        
         $table->String('event_title');
-        
         $table->String('event_type');
-        
-        $table->date('event_date');
-        
+        $table->date('event_date');        
         $table->String('event_desc');
-        
+
         /**
          * Foreignkeys section
          */

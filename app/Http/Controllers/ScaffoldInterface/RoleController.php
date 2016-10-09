@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ScaffoldInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Role;
+//use Spatie\Permission\Models\Permission;
 use App\Permission;
 
 class RoleController extends Controller
@@ -39,7 +40,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        Role::create([
+        \Spatie\Permission\Models\Role::create([
                         'name' => $request->name,
                         'display_name' => $request->display_name,
                         'description' => $request->description

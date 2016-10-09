@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html class>
+<html class="no-js">
 <head>
     <!-- Basic Page Needs
       ================================================== -->
@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
-    <!-- Mobile Specific Metasljkjl
+    <!-- Mobile Specific Meta
       ================================================== -->
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
@@ -31,9 +31,6 @@
     <script src="js/modernizr.js"></script><!-- Modernizr -->
 </head>
 <body>
-<!--[if lt IE 7]>
-<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-<![endif]-->
 <div class="body">
     <!-- Start Site Header -->
     <header class="site-header">
@@ -41,7 +38,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-xs-8">
-                        <h1 class="logo"> <a href="index.html"><img src="images/logo.png" alt="Logo"></a> </h1>
+                        <h1 class="logo"> <a href="index.html"><img src="images/logo.png" alt="CLSF LOGO"></a> </h1>
                     </div>
                     <div class="col-md-8 col-sm-6 col-xs-4">
                         <a href="#" class="visible-sm visible-xs menu-toggle"><i class="fa fa-bars"></i></a> </div>
@@ -56,21 +53,21 @@
                             <ul class="sf-menu">
                                 <li><a href="{{ url('home') }}">Home</a></li>
                                 <li><a href="{{ url('event') }}">Events</a></li>
+                                <li><a href="#">About Us</a>
+                                <ul class="dropdown">
+                                    <li><a href="{{ url('about') }}">Overview</a></li>
+                                    <li><a href="{{ url('vision') }}">Mission and Vision</a></li>
+                                    <li><a href="{{ url('history') }}">History</a></li>
+                                    <li><a href="{{ url('contact') }}">Contact Us</a></li>
+                                    <li><a href="{{ url('location') }}">Location</a></li>
+                                </ul>
+                                </li>
                                 @if(Auth::guest())
                                     <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
                                 @else
                                 @if(Entrust::hasRole(['Owner', 'Admin', 'Leader']))
                                     <li><a href="{{ url('/dashboard')}}"> Dashboard</a></li>
                                 @endif
-                                    <li><a href="#">About Us</a>
-                                    <ul class="dropdown">
-                                        <li><a href="{{ url('about') }}">Overview</a></li>
-                                        <li><a href="{{ url('vision') }}">Mission and Vision</a></li>
-                                        <li><a href="{{ url('history') }}">History</a></li>
-                                        <li><a href="{{ url('contact') }}">Contact Us</a></li>
-                                        <li><a href="{{ url('location') }}">Location</a></li>
-                                    </ul>
-                                    </li>
                                     <li><a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();"> Logout</a></li>
@@ -78,7 +75,6 @@
                                         {{ csrf_field() }}
                                     </form>
                                 @endif
-
                             </ul>
                         </nav>
                     </div>
@@ -99,11 +95,10 @@
     <div class="notice-bar">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-6 notice-bar-title"> <span class="notice-bar-title-icon hidden-xs"><i class="fa fa-calendar fa-3x"></i></span> <span class="title-note">Next</span> <strong>Upcoming Event</strong> </div>
-                <div class="col-md-3 col-sm-6 col-xs-6 notice-bar-event-title">
-
                 <?php
-                        $getLatestEvent = DB::table('events')->orderBy('event_date')->take(1)->get();
+
+                        $getLatestEvent = DB::table('events')->where('deleted_at', null)->orderBy('event_date')->take(1)->get();
+                        if(!empty($getLatestEvent[0])){
                         $getEvent = $getLatestEvent[0];
                         switch($getEvent->event_month)
                         {
@@ -148,11 +143,17 @@
                         $day = $getEvent->event_day;
                         $year = $getEvent->event_year;
                         $date = $month." ".$day.", ".$year;
+                        }
                     ?>
+
+                @if(!empty($getLatestEvent[0]))
+                    <div class="col-md-3 col-sm-6 col-xs-6 notice-bar-title"> <span class="notice-bar-title-icon hidden-xs"><i class="fa fa-calendar fa-3x"></i></span> <span class="title-note">Next</span> <strong>Upcoming Event</strong> </div>
+                    <div class="col-md-3 col-sm-6 col-xs-6 notice-bar-event-title">
 
 
                     <h5><a href="#">{{$event}}</a></h5>
                     <span class="meta-data">{{$date}}</span> </div>
+               
                 <div id="counter" class="col-md-4 col-sm-6 col-xs-12 counter" data-date="{{$date}}">
                     <div class="timer-col"> <span id="days"></span> <span class="timer-type">days</span> </div>
                     <div class="timer-col"> <span id="hours"></span> <span class="timer-type">hrs</span> </div>
@@ -160,6 +161,7 @@
                     <div class="timer-col"> <span id="seconds"></span> <span class="timer-type">secs</span> </div>
                 </div>
                 <div class="col-md-2 col-sm-6 hidden-xs"> <a href="{{url('event')}}" class="btn btn-primary btn-lg btn-block">All Events</a> </div>
+                @endif
             </div>
         </div>
     </div>
